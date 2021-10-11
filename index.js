@@ -1,13 +1,17 @@
 const inquirer = require('inquirer');
 const mysql = require('mysql2');
 const cTable = require('console.table');
+require('dotenv').config();
 
-const db = mysql.createConnection({
-      host: process.env.DB_HOST,
-      username: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
-      database: "employees_db"
-});
+const db = mysql.createConnection(
+      {
+            host: process.env.DB_HOST,
+            user: process.env.DB_USERNAME,
+            password: process.env.DB_PASSWORD,
+            database: "employees_db"
+      },
+      console.log(`Connected to the employees_db database.`)
+);
 
 const firstQuestion = [
       {
@@ -21,7 +25,8 @@ const firstQuestion = [
                   "Add Role",
                   "View All Departments",
                   "Add Department",
-                  "Quit"],
+                  "Quit",
+            ],
             name: "toDo"
       }
 ];
@@ -49,11 +54,7 @@ const addRole = [
             type: "list",
             message: "Which department does the role belong to?",
             choices: [
-                  "Engineering",
-                  "Finance",
-                  "Legal",
-                  "Sales",
-                  "Service"
+
             ],
             name: "roleDept"
       }
@@ -98,34 +99,43 @@ const updateEmpRole = [
 
       {
             type: "input",
-            name: "empNewRole",
             message: "What is the Employee's new role",
+            name: "empNewRole"
       },
 ];
 
-function startApp() {
+function init() {
       inquirer
             .prompt(firstQuestion)
             .then((response) => {
-                  switch (response) {
-                        case "Add Employee":
-                              // actions tbd atm
-                              break;
+                  console.log(response);
+                  // switch (response) {
+                  //       case "View All Employees":
+                  //             break;
 
-                        case "Update Employee Role":
-                              break;
+                  //       case "Add Employee":
+                  //             // actions tbd atm
+                  //             break;
 
-                        case "View All Roles":
-                              break;
+                  //       case "Update Employee Role":
+                  //             break;
 
-                        case "Add Role":
-                              break;
+                  //       case "View All Roles":
+                  //             break;
 
-                        case "View All Departments":
-                              break;
+                  //       case "Add Role":
+                  //             break;
 
-                        case "Quit":
-                              break;
-                  }
+                  //       case "View All Departments":
+                  //             break;
+
+                  //       case "Add Department":
+                  //             break;
+
+                  //       default: // quit
+                  //             break;
+                  // }
             })
 };
+
+init();
