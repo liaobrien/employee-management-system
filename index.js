@@ -201,6 +201,7 @@ function addDepartment() {
                         if (error) {
                               throw error;
                         }
+                        console.log("Department sucessfully added!");
                         init();
                   })
             })
