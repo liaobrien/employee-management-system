@@ -108,34 +108,44 @@ function init() {
       inquirer
             .prompt(firstQuestion)
             .then((response) => {
-                  console.log(response);
-                  // switch (response) {
-                  //       case "View All Employees":
-                  //             break;
+                  // console.log(response);
+                  switch (response.firstQuestion) {
+                        case "View All Employees":
+                              listEmployees();
+                              break;
 
-                  //       case "Add Employee":
-                  //             // actions tbd atm
-                  //             break;
+                        case "Add Employee":
+                              // actions tbd atm
+                              break;
 
-                  //       case "Update Employee Role":
-                  //             break;
+                        case "Update Employee Role":
+                              break;
 
-                  //       case "View All Roles":
-                  //             break;
+                        case "View All Roles":
+                              break;
 
-                  //       case "Add Role":
-                  //             break;
+                        case "Add Role":
+                              break;
 
-                  //       case "View All Departments":
-                  //             break;
+                        case "View All Departments":
+                              break;
 
-                  //       case "Add Department":
-                  //             break;
+                        case "Add Department":
+                              break;
 
-                  //       default: // quit
-                  //             break;
-                  // }
+                        default: // quit
+                              break;
+                  }
             })
 };
 
 init();
+
+function listEmployees() {
+      db.query('SELECT * FROM employee', function (error, results) {
+            if (error) {
+                  throw error;
+            }
+            console.table(results);
+      })
+}
