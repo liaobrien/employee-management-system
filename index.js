@@ -128,6 +128,7 @@ function init() {
                               break;
 
                         case "View All Departments":
+                              listDepartments();
                               break;
 
                         case "Add Department":
@@ -157,6 +158,18 @@ function listEmployees() {
 
 function listRoles() {
       db.query('SELECT * FROM role', function (error, results) {
+            if (error) {
+                  throw error;
+            }
+            console.table(results);
+            init();
+      })
+}
+
+// add role
+
+function listDepartments() {
+      db.query('SELECT * FROM department', function (error, results) {
             if (error) {
                   throw error;
             }
