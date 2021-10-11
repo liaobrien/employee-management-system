@@ -132,6 +132,7 @@ function init() {
                               break;
 
                         case "Add Department":
+                              addDepartment();
                               break;
 
                         default: // quit
@@ -160,7 +161,7 @@ function addEmployee() {
             .prompt(addEmp)
             .then((response) => {
                   console.log(response);
-                  console.log("yay you made it here!");
+                  // not finished yet
             })
 }
 
@@ -189,6 +190,21 @@ function listDepartments() {
             init();
       })
 };
+
+function addDepartment() {
+      inquirer
+            .prompt(addDept)
+            .then((response) => {
+                  console.log(response);
+                  const deptName = response.addDept;
+                  db.query(`INSERT INTO department(name) VALUES ("${deptName}")`, function (error, results) {
+                        if (error) {
+                              throw error;
+                        }
+                        init();
+                  })
+            })
+}
 
 function quit() {
       process.exit();
