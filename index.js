@@ -114,7 +114,7 @@ function init() {
                               break;
 
                         case "Add Employee":
-                              // actions tbd atm
+                              addEmployee();
                               break;
 
                         case "Update Employee Role":
@@ -135,6 +135,7 @@ function init() {
                               break;
 
                         default: // quit
+                              quit();
                               break;
                   }
             })
@@ -147,12 +148,21 @@ function listEmployees() {
             if (error) {
                   throw error;
             }
+            console.log(" "); // faux line break for better viewability
             console.table(results);
             init();
       })
-}
+};
 
 // add emp
+function addEmployee() {
+      inquirer
+            .prompt(addEmp)
+            .then((response) => {
+                  console.log(response);
+                  console.log("yay you made it here!");
+            })
+}
 
 // update emp role
 
@@ -161,10 +171,11 @@ function listRoles() {
             if (error) {
                   throw error;
             }
+            console.log(" "); // faux line break for better viewability
             console.table(results);
             init();
       })
-}
+};
 
 // add role
 
@@ -173,7 +184,12 @@ function listDepartments() {
             if (error) {
                   throw error;
             }
+            console.log(" "); // faux line break for better viewability
             console.table(results);
             init();
       })
+};
+
+function quit() {
+      process.exit();
 }
