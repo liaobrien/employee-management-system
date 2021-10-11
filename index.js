@@ -121,6 +121,7 @@ function init() {
                               break;
 
                         case "View All Roles":
+                              listRoles();
                               break;
 
                         case "Add Role":
@@ -146,5 +147,20 @@ function listEmployees() {
                   throw error;
             }
             console.table(results);
+            init();
+      })
+}
+
+// add emp
+
+// update emp role
+
+function listRoles() {
+      db.query('SELECT * FROM role', function (error, results) {
+            if (error) {
+                  throw error;
+            }
+            console.table(results);
+            init();
       })
 }
