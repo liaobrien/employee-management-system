@@ -108,8 +108,7 @@ function init() {
       inquirer
             .prompt(firstQuestion)
             .then((response) => {
-                  // console.log(response);
-                  switch (response.firstQuestion) {
+                  switch (response.toDo) {
                         case "View All Employees":
                               listEmployees();
                               break;
