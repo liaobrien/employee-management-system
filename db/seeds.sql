@@ -22,4 +22,9 @@ VALUES ("Elaine", "Walters", 1, 1),
        ("Rafael", "Allison", 2, 2),
        ("Jeffery", "Fisher", 3, 3),
        ("Mabel", "Anderson", 4, 4),
-       ("Chris", "Bates", 5, 5);
+       ("Chris", "Bates", 5, 5),
+       ("Evelyn", "Nichols", 6, NULL),
+       ("Matthew", "Fernandez", 7, NULL),
+       ("Bethany", "Schwartz", 8, NULL),
+       ("Garrett", "Kim", 9, NULL),
+       ("Brittany", "Roberts", 10, NULL);
