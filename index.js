@@ -158,7 +158,7 @@ function addEmployee() {
       addEmp[2].choices = []; // what is the emp's role?
       addEmp[3].choices = []; // who is their manager?
       // i want to fill the emp role question with all the available roles in my table, and make sure they have a dept_id to go with them
-      db.query('SELECT title, department_id from role', function (error, results) {
+      db.query('SELECT title, department_id FROM role', function (error, results) {
             if (error) {
                   throw error;
             }
@@ -166,6 +166,21 @@ function addEmployee() {
             results.forEach(role => {
                   // push list choices to role title array
                   addEmp[2].choices.push(role.title);
+            })
+      })
+
+      db.query('SELECT first_name, last_name, manager_id FROM employee', function (error, results) {
+            if (error) {
+                  throw error;
+            }
+
+            results.forEach(employee => {
+                  // makes sure only names showing are actual managers
+                  if (employee.manager_id !== null) {
+                        // push list choices to role title array
+                        addEmp[3].choices.push(`${employee.first_name} ${employee.last_name}`);
+                  }
+
             })
       })
 
