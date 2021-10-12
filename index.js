@@ -43,7 +43,7 @@ const addRole = [
       {
             type: "input",
             message: "What role would you like to add?",
-            name: "addRole"
+            name: "newRole"
       },
       {
             type: "input",
@@ -53,9 +53,7 @@ const addRole = [
       {
             type: "list",
             message: "Which department does the role belong to?",
-            choices: [
-
-            ],
+            choices: [],
             name: "roleDept"
       }
 ];
@@ -74,17 +72,13 @@ const addEmp = [
       {
             type: "list",
             message: "What is the employee's role?",
-            choices: [
-                  // will create later through seeds.sql
-            ],
+            choices: [],
             name: "empRole"
       },
       {
             type: "list",
             message: "Who is the employee's manager?",
-            choices: [
-                  // will create later through seeds.sql
-            ],
+            choices: [],
             name: "empManager"
       }
 ];
@@ -125,6 +119,7 @@ function init() {
                               break;
 
                         case "Add Role":
+                              addRoles();
                               break;
 
                         case "View All Departments":
@@ -157,6 +152,21 @@ function listEmployees() {
 
 // add emp
 function addEmployee() {
+      addEmp[2].choices = [];
+
+      db.query('SELECT title, department_id from role', function (error, results) {
+            if (error) {
+                  throw error;
+            }
+
+            results.forEach(role => {
+
+                  addRole[2].choices.push(role.title);
+            })
+            console.log(addRole[2].choices);
+      })
+
+
       inquirer
             .prompt(addEmp)
             .then((response) => {
@@ -179,6 +189,40 @@ function listRoles() {
 };
 
 // add role
+function addRoles() {
+      addRole[2].choices = [];
+
+      db.query("SELECT id, name FROM department", function (err, results) {
+            if (err) {
+                  throw err;
+            }
+            results.forEach(department => {
+                  addRole[2].choices.push(department.name)
+            })
+
+            inquirer
+                  .prompt(addRole)
+                  .then((response) => {
+                        // set up role/department id
+                        let addRoleId = "";
+                        results.forEach(department => {
+                              if (department.name === response.roleDept) {
+                                    addRoleId = department.id;
+                              }
+                        })
+                        // actual query to add the role
+                        db.query(`INSERT INTO role(title, salary, department_id) VALUES ("${response.newRole}", ${response.roleSalary}, ${addRoleId});`, function (error, results) {
+                              if (error) {
+                                    throw error;
+                              }
+                              console.log("Role has been added to the database!")
+                              listRoles();
+                              init();
+                        })
+                  });
+      });
+
+}
 
 function listDepartments() {
       db.query('SELECT * FROM department', function (error, results) {
@@ -195,7 +239,7 @@ function addDepartment() {
       inquirer
             .prompt(addDept)
             .then((response) => {
-                  console.log(response);
+                  // since response is the whole key/value, deptName is just the value
                   const deptName = response.addDept;
                   db.query(`INSERT INTO department(name) VALUES ("${deptName}")`, function (error, results) {
                         if (error) {
