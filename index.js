@@ -73,14 +73,14 @@ const addEmp = [
       },
       {
             type: "list",
-            message: "What is the employee's role?",
-            choices: [],
+            message: "What is the employee's role id?",
+            choices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
             name: "empRole"
       },
       {
             type: "list",
-            message: "Who is the employee's manager?",
-            choices: [],
+            message: "What is the employee's manager id? (If they are a manager, choose null.)",
+            choices: [1, 3, 5, 7, 9, null],
             name: "empManager"
       }
 ];
@@ -154,81 +154,14 @@ function listEmployees() {
 
 // add emp
 function addEmployee() {
-      // // declare empty arrays for the questions with type: list
-      // addEmp[2].choices = []; // what is the emp's role?
-      // addEmp[3].choices = []; // who is their manager?
-      // // i want to fill the emp role question with all the available roles in my table, and make sure they have a dept_id to go with them
-      // db.query('SELECT title, department_id FROM role', function (error, results) {
-      //       if (error) {
-      //             throw error;
-      //       }
-
-      //       results.forEach(role => {
-      //             // push list choices to role title array
-      //             addEmp[2].choices.push(role.title);
-      //       })
-      // })
-
-      // db.query('SELECT first_name, last_name, manager_id FROM employee', function (error, results) {
-      //       if (error) {
-      //             throw error;
-      //       }
-
-      //       results.forEach(employee => {
-      //             // makes sure only names showing are actual managers (ppl w/out a manager id)
-      //             if (employee.manager_id === null) {
-      //                   // push list choices to manager array
-      //                   addEmp[3].choices.push(`${employee.first_name} ${employee.last_name}`);
-      //             }
-
-      //       })
-      //       // no manager option
-      //       addEmp[3].choices.push("None");
-
-      //       inquirer
-      //             .prompt(addEmp)
-      //             .then((response) => {
-      //                   console.log(response);
-
-
-      //                   db.query('SELECT id, title FROM role', function (error, results) {
-      //                         if (error) {
-      //                               throw error;
-      //                         }
-      //                         // let roleId;
-      //                         if (response.empRole === role.title) {
-      //                               // change the empRole answer to its corresponding employee.role_id?
-      //                               roleId = role.id;
-      //                         }
-
-      //                         // let manId;
-      //                         if (response.empManager !== "None") {
-      //                               manId = employee.id;
-      //                         }
-      //                         else {
-      //                               manId = null;
-      //                         }
-
-      //                         db.query(`INSERT INTO employee(first_name, last_name, role_id, manager_id) VALUES ("${response.empFirstName}", "${response.empLastName}", ${roleId}, ${manId},);`, function (error, results) {
-      //                               if (error) {
-      //                                     throw error;
-      //                               }
-      //                               console.log("Employee added!");
-      //                               init();
-      //                         })
-      //                   })
-
-
-      //                   // how do i translate role and manager id's into the words?
-
-
-      //             })
-      // })
 
 
 }
 
 // update emp role
+function updateEmployeeRole() {
+
+}
 
 function listRoles() {
       db.query('SELECT * FROM role', function (error, results) {
