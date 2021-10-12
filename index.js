@@ -88,14 +88,15 @@ const addEmp = [
 const updateEmpRole = [
       {
             type: "list",
-            message: "Which Employee would you like to update",
-            choices: [],
+            message: "Picking by id, which Employee would you like to update",
+            choices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
             name: "empUpdateRole",
       },
 
       {
-            type: "input",
-            message: "What is the Employee's new role",
+            type: "list",
+            message: "What is the Employee's new role id?",
+            choices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
             name: "empNewRole"
       },
 ];
@@ -114,6 +115,7 @@ function init() {
                               break;
 
                         case "Update Employee Role":
+                              updateEmployeeRole();
                               break;
 
                         case "View All Roles":
@@ -171,7 +173,17 @@ function addEmployee() {
 
 // update emp role
 function updateEmployeeRole() {
-
+      inquirer
+            .prompt(updateEmpRole)
+            .then((response) => {
+                  db.query(`UPDATE employee SET role_id = ${response.empNewRole} WHERE id = ${response.empUpdateRole};`, function (error, results) {
+                        if (error) {
+                              throw error;
+                        }
+                        console.log("Employee role updated!");
+                        init();
+                  })
+            })
 }
 
 function listRoles() {
