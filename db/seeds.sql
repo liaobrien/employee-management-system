@@ -18,13 +18,13 @@ VALUES ("Senior Engineer", 100000, 1),
        ("IT Specialist", 50000, 5);
 
 INSERT INTO employee(first_name, last_name, role_id, manager_id)
-VALUES ("Elaine", "Walters", 1, 1),
-       ("Rafael", "Allison", 2, 2),
-       ("Jeffery", "Fisher", 3, 3),
-       ("Mabel", "Anderson", 4, 4),
-       ("Chris", "Bates", 5, 5),
-       ("Evelyn", "Nichols", 6, NULL),
+VALUES ("Elaine", "Walters", 1, NULL),
+       ("Rafael", "Allison", 2, 1),
+       ("Jeffery", "Fisher", 3, NULL),
+       ("Mabel", "Anderson", 4, 3),
+       ("Chris", "Bates", 5, NULL),
+       ("Evelyn", "Nichols", 6, 5),
        ("Matthew", "Fernandez", 7, NULL),
-       ("Bethany", "Schwartz", 8, NULL),
+       ("Bethany", "Schwartz", 8, 7),
        ("Garrett", "Kim", 9, NULL),
-       ("Brittany", "Roberts", 10, NULL);
+       ("Brittany", "Roberts", 10, 9);

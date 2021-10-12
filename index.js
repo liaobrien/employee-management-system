@@ -175,22 +175,38 @@ function addEmployee() {
             }
 
             results.forEach(employee => {
-                  // makes sure only names showing are actual managers
-                  if (employee.manager_id !== null) {
-                        // push list choices to role title array
+                  // makes sure only names showing are actual managers (ppl w/out a manager id)
+                  if (employee.manager_id === null) {
+                        // push list choices to manager array
                         addEmp[3].choices.push(`${employee.first_name} ${employee.last_name}`);
                   }
 
             })
+            // no manager option
+            addEmp[3].choices.push("None");
+
+            inquirer
+                  .prompt(addEmp)
+                  .then((response) => {
+                        console.log(response);
+
+                        let addRoleId = "";
+                        results.forEach(department => {
+                              if (department.name === response.roleDept) {
+                                    addRoleId = department.id;
+                              }
+                        })
+                        // not finished yet
+                        // db.query()
+                        if (response.empManager === "None") {
+                              db.query(`INSERT INTO employee(first_name, last_name, role_id, manager_id) VALUES ("${response.empFirstName}", "${response.empLastName}")`)
+                        }
+
+                        init();
+                  })
       })
 
 
-      inquirer
-            .prompt(addEmp)
-            .then((response) => {
-                  console.log(response);
-                  // not finished yet
-            })
 }
 
 // update emp role
