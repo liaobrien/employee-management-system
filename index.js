@@ -3,6 +3,7 @@ const mysql = require('mysql2');
 const cTable = require('console.table');
 require('dotenv').config();
 
+// database connection
 const db = mysql.createConnection(
       {
             host: process.env.DB_HOST,
@@ -13,6 +14,7 @@ const db = mysql.createConnection(
       console.log(`Connected to the employees_db database.`)
 );
 
+// all inquirer questions
 const firstQuestion = [
       {
             type: "list",
@@ -152,8 +154,10 @@ function listEmployees() {
 
 // add emp
 function addEmployee() {
-      addEmp[2].choices = [];
-
+      // declare empty arrays for the questions with type: list
+      addEmp[2].choices = []; // what is the emp's role?
+      addEmp[3].choices = []; // who is their manager?
+      // i want to fill the emp role question with all the available roles in my table, and make sure they have a role_id to go with them?
       db.query('SELECT title, department_id from role', function (error, results) {
             if (error) {
                   throw error;
