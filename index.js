@@ -80,7 +80,7 @@ const addEmp = [
       {
             type: "list",
             message: "What is the employee's manager id? (If they are a manager, choose null.)",
-            choices: [1, 3, 5, 7, 9, null],
+            choices: [1, 3, 5, 7, 9, "null"],
             name: "empManager"
       }
 ];
@@ -154,7 +154,18 @@ function listEmployees() {
 
 // add emp
 function addEmployee() {
-
+      inquirer
+            .prompt(addEmp)
+            .then((response) => {
+                  db.query(`INSERT INTO employee(first_name, last_name, role_id, manager_id) VALUES ("${response.empFirstName}", "${response.empLastName}", ${response.empRole}, ${response.empManager});`, function (error, results) {
+                        if (error) {
+                              throw error;
+                        }
+                        console.log("Employee added to database!");
+                        listEmployees();
+                        init();
+                  })
+            })
 
 }
 
