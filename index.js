@@ -185,7 +185,7 @@ function updateEmployeeRole() {
 }
 
 function listRoles() {
-      db.query('SELECT * FROM role', function (error, results) {
+      db.query('SELECT role.id, role.title, role.salary, department.dept_name AS department FROM role INNER JOIN department ON role.department_id = department.id;', function (error, results) {
             if (error) {
                   throw error;
             }
