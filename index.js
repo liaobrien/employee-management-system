@@ -54,8 +54,8 @@ const addRole = [
       },
       {
             type: "list",
-            message: "Which department does the role belong to?",
-            choices: [],
+            message: "Which department id does the role belong to?",
+            choices: [1, 2, 3, 4, 5],
             name: "roleDept"
       }
 ];
@@ -196,39 +196,20 @@ function listRoles() {
 };
 
 function addRoles() {
-      addRole[2].choices = [];
 
-      db.query("SELECT id, dept_name FROM department", function (err, results) {
-            if (err) {
-                  throw err;
-            }
-            results.forEach(department => {
-                  addRole[2].choices.push(department.dept_name)
-            })
-
-            inquirer
-                  .prompt(addRole)
-                  .then((response) => {
-                        // set up role/department id
-                        let addRoleId = "";
-                        results.forEach(department => {
-                              if (department.dept_name === response.roleDept) {
-                                    addRoleId = department.id;
-                              }
-                        })
-                        // actual query to add the role
-                        db.query(`INSERT INTO role(title, salary, department_id) VALUES ("${response.newRole}", ${response.roleSalary}, ${addRoleId});`, function (error, results) {
-                              if (error) {
-                                    throw error;
-                              }
-                              console.log("Role has been added to the database!")
-                              listRoles();
-                              init();
-                        })
-                  });
-      });
-
-}
+      inquirer
+            .prompt(addRole)
+            .then((response) => {
+                  db.query(`INSERT INTO role(title, salary, department_id) VALUES ("${response.newRole}", ${response.roleSalary}, ${response.roleDept});`, function (error, results) {
+                        if (error) {
+                              throw error;
+                        }
+                        console.log("Role has been added to the database!")
+                        listRoles();
+                        init();
+                  })
+            });
+};
 
 function listDepartments() {
       db.query('SELECT * FROM department', function (error, results) {
