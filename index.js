@@ -203,7 +203,7 @@ function addRoles() {
                   throw err;
             }
             results.forEach(department => {
-                  addRole[2].choices.push(department.name)
+                  addRole[2].choices.push(department.dept_name)
             })
 
             inquirer
@@ -212,7 +212,7 @@ function addRoles() {
                         // set up role/department id
                         let addRoleId = "";
                         results.forEach(department => {
-                              if (department.name === response.roleDept) {
+                              if (department.dept_name === response.roleDept) {
                                     addRoleId = department.id;
                               }
                         })
@@ -247,7 +247,7 @@ function addDepartment() {
             .then((response) => {
                   // since response is the whole key/value, deptName is just the value
                   const deptName = response.addDept;
-                  db.query(`INSERT INTO department(name) VALUES ("${deptName}")`, function (error, results) {
+                  db.query(`INSERT INTO department(dept_name) VALUES ("${deptName}")`, function (error, results) {
                         if (error) {
                               throw error;
                         }
