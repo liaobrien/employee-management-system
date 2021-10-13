@@ -198,7 +198,7 @@ function listRoles() {
 function addRoles() {
       addRole[2].choices = [];
 
-      db.query("SELECT id, name FROM department", function (err, results) {
+      db.query("SELECT id, dept_name FROM department", function (err, results) {
             if (err) {
                   throw err;
             }
